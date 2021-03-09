@@ -4,5 +4,12 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Scripts\Get-Jobs.ps1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Scripts\Get-Jobs.ps1" />
+  </ItemGroup>
 
 </Project>

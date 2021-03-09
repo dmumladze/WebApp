@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.Encodings.Web;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authentication;
@@ -34,11 +36,10 @@ namespace WebApp.Security
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             _contextAccessor.DomainContext = new DomainContext();
-            _contextAccessor.DomainContext.User = new UserPrincipal(new UserIdentity("admin"), Array.Empty<string>());
+            _contextAccessor.DomainContext.JobInfo = new Job { JobId = Guid.NewGuid().ToString(), ThreadId = Thread.CurrentThread.ManagedThreadId };
 
-            base.Context.Items.Add("UserId", "admin2");
 
-            var ticket = new AuthenticationTicket(_contextAccessor.DomainContext.User, Options.Scheme);
+            var ticket = new AuthenticationTicket(ClaimsPrincipal.Current, Options.Scheme);
 
             return Task.FromResult(AuthenticateResult.Success(ticket));
         }

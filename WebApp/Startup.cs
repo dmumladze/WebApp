@@ -23,7 +23,7 @@ namespace WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             //similar to how IHttpContextAccessor is implemented
-            services.AddSingleton<IDomainContextAccessor, DomainContextAccessor>();
+            services.AddScoped<IDomainContextAccessor, DomainContextAccessor>();
             
             services.AddAuthentication(options =>
             {
@@ -42,11 +42,11 @@ namespace WebApp
                 app.UseDeveloperExceptionPage();
             }
 
-            //setting AsyncLocal<T> from here works
-            //app.UseDomainContext();
-
             //setting AsyncLocal<T> from here does not works
-            app.UseAuthentication();
+            //app.UseAuthentication();
+
+            //setting AsyncLocal<T> from here works
+            app.UseDomainContext();
 
             app.UseHttpsRedirection();
             app.UseRouting();

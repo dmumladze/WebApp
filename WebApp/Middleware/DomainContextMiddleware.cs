@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Builder;
@@ -20,10 +21,10 @@ namespace WebApp.Middleware
 
         public async Task InvokeAsync(HttpContext httpContext, IDomainContextAccessor contextAccessor)
         {
-            contextAccessor.DomainContext = new DomainContext();
-            contextAccessor.DomainContext.User = new UserPrincipal(new UserIdentity("admin"), Array.Empty<string>());
+            var context = new DomainContext();
+            context.JobInfo = new Job { JobId = Guid.NewGuid().ToString(), ThreadId = Thread.CurrentThread.ManagedThreadId };
 
-            httpContext.Items.Add("UserId", "admin2");
+            DomainContext.Current = context;
 
             await _next(httpContext);
         }
