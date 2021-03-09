@@ -22,7 +22,7 @@ namespace WebApp.Middleware
         public async Task InvokeAsync(HttpContext httpContext, IDomainContextAccessor contextAccessor)
         {
             var context = new DomainContext();
-            context.JobInfo = new Job { JobId = Guid.NewGuid().ToString(), ThreadId = Thread.CurrentThread.ManagedThreadId };
+            context.JobInfo = new Job { JobId = Guid.NewGuid().ToString(), ThreadId = Thread.CurrentThread.ManagedThreadId, Start = DateTime.Now };
 
             DomainContext.Current = context;
 

@@ -6,6 +6,7 @@ namespace WebApp.Models
     {
         public string JobId { get; set; }
         public int ThreadId { get; set; }
-        public DateTime Timestamp { get; set; }      
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
     }
 }

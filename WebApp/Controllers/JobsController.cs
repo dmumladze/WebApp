@@ -17,14 +17,16 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public Task<Job> Get()
+        public async Task<Job> Get()
         {
-            return Task.FromResult(new Job
+            await Task.Delay(25);
+            return new Job
             {
                 JobId = DomainContext.Current.JobInfo.JobId,
                 ThreadId = DomainContext.Current.JobInfo.ThreadId,
-                Timestamp = DateTime.Now
-            });
+                Start = DomainContext.Current.JobInfo.Start,
+                End = DateTime.Now
+            };
         }
     }
 }
